@@ -37,12 +37,6 @@ if len(dump_id) == 0:
 else:
     dump_id = int(dump_id)
 
-fsub_id = os.environ.get('FSUB_ID', '')
-if len(fsub_id) == 0:
-    logging.error("FSUB_ID variable is missing! Exiting now")
-    exit(1)
-else:
-    fsub_id = int(fsub_id)
 
 app = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
@@ -60,7 +54,7 @@ async def start_command(client, message):
 
 async def is_user_member(client, user_id):
     try:
-        member = await client.get_chat_member(fsub_id, user_id)
+        member = await client.get_chat_member(dump_id, user_id)
         logging.info(f"User {user_id} membership status: {member.status}")
         if member.status in [ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
             return True
